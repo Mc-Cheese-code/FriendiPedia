@@ -1,4 +1,4 @@
-import { Button, Flex, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, useDisclosure } from '@chakra-ui/react'
+import { Button, ButtonGroup, Flex, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Radio, RadioGroup, Textarea, useDisclosure } from '@chakra-ui/react'
 import {BiAddToQueue} from "react-icons/bi"
 import React from 'react'
 
@@ -25,8 +25,35 @@ const CreateUserModal = () => {
                             <FormLabel>Full Name</FormLabel>
                             <Input placeholder='agent name'></Input>
                         </FormControl>
+
+                        <FormControl>
+                            <FormLabel>Role</FormLabel>
+                            <Input placeholder='Software Engineer'></Input>
+                        </FormControl>
                     </Flex>
+                    <FormControl mt={4}>
+                        <FormLabel>Description</FormLabel>
+                        <Textarea
+                        resize={"none"}
+                        overflow={"hidden"}
+                        placeholder="He's a bit of a crackhead but that's why he's fun"
+                        />
+                    </FormControl>
+
+                    <RadioGroup defaultValue='Male' mt={4}>
+                        <Flex gap={5}>
+                            <Radio value='male'>Male</Radio>
+                            <Radio value='female'>Female</Radio>
+                        </Flex>
+                    </RadioGroup>
                 </ModalBody>
+
+                <ModalFooter>
+                    <Button colorScheme='blue' mr={3}>
+                        Add
+                    </Button>
+                    <Button onClick={onClose}>Cancel</Button>
+                </ModalFooter>
             </ModalContent>
         </Modal>
     </>
