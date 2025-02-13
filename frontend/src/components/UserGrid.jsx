@@ -1,9 +1,30 @@
 import { Grid } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { USERS } from '../dummy/dummy'
 import UserCard from './UserCard'
 
-const UserGrid = () => {
+const UserGrid = ({users, setUsers}) => {
+    const [isLoading, setIsLoading] = useState(true);
+    useEffect(()=>{
+        const getUsers = async () =>{
+            try {
+                const res = await fetch("http://127.0.0.1.5000/api/friends");
+                const data = await res.json();
+
+                if(!res.ok){
+                    throw new Error(data.error);
+                }
+                setUsers(data);
+
+            } catch (error) {
+                console.error(error);
+            } finally{
+                setIsLoading(false);
+            }
+        }
+        getUsers();
+    },[setUsers])
+
   return (
     <Grid templateColumns={{
         base:'1fr',
@@ -11,7 +32,7 @@ const UserGrid = () => {
         lg:"repeat(3,1fr)"
     }}
     gap={4}>
-        {USERS.map((user)=>(
+        {users.map((user)=>(
             <UserCard key={user.id} user={user}/>
         ))}
         
